@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>小黑记事本</title>
+    <style>
+        #notepad{
+            width: 400px;
+            margin: 0 auto;
+        }
+        .header h2{
+            font-size: 40px;
+            color: pink;
+            text-align: center;
+        }
+        .header .new-work{
+            outline: none;
+            width: 100%;
+            height: 50px;
+            background-color: #fff;
+            font-size: 18px;
+            color: #999999;
+            font-style: italic;
+            border: 1px solid #666;
+            box-sizing: border-box;
+            padding-left: 10px;
+        }
+        .notepad-body ul{
+            padding-left: 0;
+            margin: 0;
+            border: 1px solid #666;
+        }
+        .notepad-body li{
+            border-bottom: 1px solid #666;
+            list-style: none;
+            padding: 15px 20px;
+            cursor: pointer;
+        }
+        .notepad-body li button{
+            float: right;
+            border: none;
+            outline: none;
+            display: none;
+        }
+        .notepad-body li:hover button{
+            display: inline-block;
+            font-size: 14px;
+            color: hotpink;
+            cursor: pointer;
+        }
+        .notepad-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 100%;
+    height: 45px;
+    font-size: 12px;
+    color: #999999;
+    border: 1px solid #666666;
+    margin-top:-2px;
+}
+        .notepad-info .notepad-clear{
+       cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<section id="notepad">
+    <header class="header">
+        <h2>小黑记事本</h2>
+        <!--输入框 -->
+        <input type="text" placeholder="请输入任务" autofocus autocomplete="off" class="new-work" @keyup.enter="add" v-model="message"/>
+    </header>
+    <!-- 列表区-->
+    <div class="notepad-body">
+        <ul class="notepad-list">
+            <li class="todo" v-for="(item,index) in list">
+                <div class="view">
+                    <span class="index">{{index+1}}.</span>
+                    <label>{{item}}</label>
+                    <button class="destroy" @click="remove(index)">删除</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer class="notepad-info" v-show="list.length>0">
+        <div class="notepad-info-total">{{list.length}}条记录</div>
+        <button class="notepad-clear" @click="clear">清空</button>
+    </footer>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+let app=new Vue({
+    el:"#notepad",
+    data:{
+        list:["吃饭饭","睡觉觉","写代码"],
+        message:'',
+        isShow:"true"
+    },
+    methods:{
+        add:function(){
+          if(this.message!=''){
+              this.list.push(this.message);
+              this.message=''
+          }
+        },
+        clear:function(){
+       this.list.splice(0,this.list.length)
+},
+        remove:function(index){
+            this.list.splice(index,index+1)
+        },
+    }
+})
+</script>
+</body>
+</html>

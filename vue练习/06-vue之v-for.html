@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <button @click="add">添加按钮</button>
+    <button @click="remove">删除最前面元素</button>
+    <ul>
+        <li v-for="(item,index) in fuirt" @click="add">{{item.name}}</li>
+    </ul>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app=new Vue({
+        el:"#app",
+        data:{
+            arr:["哈哈","嘿嘿"],
+            fuirt:[
+                {name:"苹果"},
+                {name:"榴莲"}
+            ]
+        },
+        methods:{
+        add:function(){
+            this.fuirt.push({name:"栗子"})
+        },
+            remove:function(){
+            this.fuirt.shift();
+            }
+        }
+    })
+</script>
+</body>
+</html>
